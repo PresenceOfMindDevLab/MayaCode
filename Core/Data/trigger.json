@@ -1,0 +1,20 @@
+{
+    "m_reply":{
+        "ping":["pong"],
+        "info":["Maya-Project, version tech 0.0.1.2"],
+        "give_cookie":["Of course!"]
+    },
+
+    "m_tag":{
+        "hello_there":[" "],
+        "hello":["Hi ^^"]
+    },
+
+    "m_reply_name":{
+
+    },
+
+    "m_reply_to_usermessage":{
+        "yuko_pat_her":["Hai! *smiles and jumps on " + takename + "'s arms*"]
+    }
+}
