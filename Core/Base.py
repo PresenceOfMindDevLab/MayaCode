@@ -121,3 +121,7 @@ def MayaRun():
 def idle():
     while True:
         time.sleep(10)
+
+# ToDo
+# make query for equals and interactions 
+# --> like "ping" and "Maya do this" (BotName + Command)
