@@ -1,3 +1,14 @@
 {
-    "ping":["Elaboration time: pingt ms!"]
+    "equals":{
+        "ping":["Elaboration time: pingt ms!"]
+    },
+    
+    "interactions":{},
+    "simple_interactions":{},
+    "bot_command":{},
+    "admin_commands":{
+        "ban":["Alright! *grabs uname 's collar and throws it inside the garbage bin"]
+    },
+    "daytime":{}
+
 }
