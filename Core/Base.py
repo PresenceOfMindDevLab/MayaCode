@@ -16,7 +16,7 @@
 
 from Core.MayaChan import telegram_chatbot
 # ToDo 
-# from Utils import Logger as Log
+from Utils import Logger as Log
 # from Core.Dialoger import maya_trigger, maya_reply_usermessage 
 
 import operator
@@ -121,3 +121,7 @@ def MayaRun():
 def idle():
     while True:
         time.sleep(10)
+
+# ToDo
+# make query for equals and interactions 
+# --> like "ping" and "Maya do this" (BotName + Command)
