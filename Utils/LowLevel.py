@@ -12,16 +12,19 @@
 # 888       888 "Y888888  "Y88888 "Y888888         "Y8888P"   "Y88P"   "Y88888  "Y8888  
 #                             888                                                       
 #                        Y8b d88P                                                       
-#                         "Y88P"  
+#                         "Y88P"   
+from Core import Base as Base
 
-import Core.Base as Base
-from Utils import Logger as Log
-from Core.MayaChan import telegram_chatbot
+from pythonping import ping
+import time
 
-bot = telegram_chatbot("config.cfg")
+def uptime():
+    uptime = time.time() - Base.startTime
+    return uptime
 
-if __name__ == "__main__":
-    bot.sendbootmsg("Booted!")
-    Log.i("Starting Maya-Project, version 0.0.1")
-    Base.MayaRun()
-    Base.idle()
+def pingt():
+    response_list = ping('8.8.8.8', size=40, count=1)
+    print(response_list.rtt_avg_ms)
+    pingr = response_list.rtt_avg_ms
+    return pingr
+

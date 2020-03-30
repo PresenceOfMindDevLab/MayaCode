@@ -1,10 +1,10 @@
 {
-    "equals": ["ping"],
-    "interactions": [],
+    "equals": ["ping","uwu","dead"],
+    "interactions": ["hug me"],
     "bot_command": [],
     "admin_commands": ["ban"],
     "daytime":[],
-    "simple_interactions":[], 
+    "simple_interactions":["*pat*"], 
     "bot_comm_symbol": "/",
     "antispam time": 5.0
 

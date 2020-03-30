@@ -1,10 +1,17 @@
 {
     "equals":{
-        "ping":["Elaboration time: pingt ms!"]
+        "ping":["Elaboration time: %s ms!"],
+        "uwu":["UwU"],
+        "dead":["rip ;__;"]
+
     },
     
-    "interactions":{},
-    "simple_interactions":{},
+    "interactions":{
+        "hug me":["*strongly hugs %s* ^^"]
+    },
+    "simple_interactions":{
+        "*pat*":["*purrs* (~.~)"]
+    },
     "bot_command":{},
     "admin_commands":{
         "ban":["Alright! *grabs uname 's collar and throws it inside the garbage bin"]
