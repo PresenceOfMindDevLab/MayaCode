@@ -30,6 +30,8 @@ class maya_trigger:
         if msg is not None:
             
             msg, jsonDialog = pars.ReadTrigger(msg)
+            print(msg)
+            print(jsonDialog)
 
             try: 
                 reply = pars.LoadDialog(msg, jsonDialog)
@@ -45,7 +47,7 @@ class maya_trigger:
 
 
 
-class yuko_reply_usermessage:
+class maya_reply_usermessage:
     
     def reply_to_usermessage(self, msg, sendname, takename):
 

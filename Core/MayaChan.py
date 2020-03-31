@@ -12,11 +12,10 @@
 # 888       888 "Y888888  "Y88888 "Y888888         "Y8888P"   "Y88P"   "Y88888  "Y8888  
 #                             888                                                       
 #                        Y8b d88P                                                       
-#                         "Y88P"                                                                                                                                                                    
-
+#                         "Y88P"
 
 import requests
-import json 
+import json
 import configparser as cfg
 
 class telegram_chatbot():
@@ -43,10 +42,12 @@ class telegram_chatbot():
 
     def ReadTokenFromConfig(self, config):
         parser = cfg.ConfigParser()
-        parser.read(config)
-        return parser.get('creds', 'token')
+        with open("Files/config.cfg") as config:
+            parser.read(config)
+            return parser.get('creds', 'token')
     
     def ReadMasterID(self, config):
         parser = cfg.ConfigParser()
-        parser.read(config)
-        return parser.get('creds', 'masterID')
+        with open("Files/config.cfg") as config:
+            parser.read(config)
+            return parser.get('creds', 'masterID')
