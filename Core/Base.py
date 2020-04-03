@@ -28,7 +28,7 @@ import psutil
 import json
 
 
-bot = telegram_chatbot("config.cfg")
+bot = telegram_chatbot("Files/config.cfg")
 trigger = maya_trigger()
 repum = maya_reply_usermessage()
 startTime = time.time()
@@ -115,6 +115,10 @@ def MayaRun():
                     if from_ == chat_:
                         reply = trigger.make_reply(message, username_, first_name_)
                         bot.send_message(reply, from_)
+                    
+                    if from_ != chat_:
+                        reply = trigger.make_reply(message, username_, first_name_)
+                        bot.send_message(reply, chat_)
 
 def idle():
     while True:

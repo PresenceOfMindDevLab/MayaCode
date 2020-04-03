@@ -1,13 +1,13 @@
 {
     "equals":{
-        "ping":["Elaboration time: %s ms!"],
+        "ping":["Elaboration time: {} ms!"],
         "uwu":["UwU"],
         "dead":["rip ;__;"]
 
     },
     
     "interactions":{
-        "hug me":["*strongly hugs %s* ^^"]
+        "hug me":["*strongly hugs {} * ^^"]
     },
     "simple_interactions":{
         "*pat*":["*purrs* (~.~)"]

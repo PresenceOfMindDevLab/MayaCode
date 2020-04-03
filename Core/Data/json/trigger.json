@@ -5,7 +5,5 @@
     "admin_commands": ["ban"],
     "daytime":[],
     "simple_interactions":["*pat*"], 
-    "bot_comm_symbol": "/",
-    "antispam time": 5.0
-
+    "bot_comm_symbol": "/"    
 }

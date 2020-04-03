@@ -20,7 +20,7 @@ import json
 
 def ReadTrigger(msg):
     jsonDialog = None
-    with open("Core/Data/trigger.json") as trigger:
+    with open("Core/Data/json/trigger.json") as trigger:
         data = json.load(trigger)
         equals = data["equals"]
         inter = data["interactions"]
@@ -37,30 +37,40 @@ def ReadTrigger(msg):
                     jsonDialog = "interactions"
                     msg = msg
                     return msg, jsonDialog
+                else:
+                    jsonDialog = None
+                    return msg, jsonDialog
+            else:
+                jsonDialog = None
+                return msg, jsonDialog
 
 
 def ReadReply(msg):
     jsonDialog = None
-    with open("Core/Data/trigger.json") as trigger:
+    with open("Core/Data/json/trigger.json") as trigger:
         data = json.load(trigger)
         sinter = data["simple_interactions"]
         if msg in sinter:
             jsonDialog = "simple_interactions"
             msg = msg
             return msg, jsonDialog
+        else:
+            jsonDialog = None
+            return msg, jsonDialog
 
 def LoadDialog(msg, jsonDialog):
     reply = None
-    with open("Core/Data/Dialogs.json") as dialogs:
+    with open("Core/Data/json/Dialogs.json") as dialogs:
         data = json.load(dialogs)
         reply = data[jsonDialog][msg]
         return reply
 
 
 def Usage(jsonDialog):
-    with open("Core/Data/trigger_usage.json") as usage:
+    with open("Core/Data/json/trigger_usage.json") as usage:
         data = json.load(usage)
         count = data[jsonDialog]
         count = count + 1
         rep = data[jsonDialog][count]
         json.dump(rep, usage)
+

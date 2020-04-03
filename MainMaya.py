@@ -18,7 +18,7 @@ import Core.Base as Base
 from Utils import Logger as Log
 from Core.MayaChan import telegram_chatbot
 
-bot = telegram_chatbot("config.cfg")
+bot = telegram_chatbot("Files/config.cfg")
 
 if __name__ == "__main__":
     bot.sendbootmsg("Booted!")

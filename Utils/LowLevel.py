@@ -14,9 +14,11 @@
 #                        Y8b d88P                                                       
 #                         "Y88P"   
 from Core import Base as Base
+from Utils import Logger as Log
 
 from pythonping import ping
 import time
+import yaml
 
 def uptime():
     uptime = time.time() - Base.startTime
@@ -24,7 +26,13 @@ def uptime():
 
 def pingt():
     response_list = ping('8.8.8.8', size=40, count=1)
-    print(response_list.rtt_avg_ms)
-    pingr = response_list.rtt_avg_ms
+    pingr = float(response_list.rtt_avg_ms)
+    Log.i(pingr)
     return pingr
 
+def getAntispam():
+    with open("Core/Data/yaml/settings.yaml", 'r') as stream:
+        try:
+            print(yaml.safe_load(stream))
+        except yaml.YAMLError as exc:
+            print(exc)

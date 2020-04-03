@@ -30,18 +30,20 @@ class maya_trigger:
         if msg is not None:
             
             msg, jsonDialog = pars.ReadTrigger(msg)
-            print(msg)
-            print(jsonDialog)
 
             try: 
-                reply = pars.LoadDialog(msg, jsonDialog)
+                reply = str(pars.LoadDialog(msg, jsonDialog))
+                pars.Usage(jsonDialog)
 
             except:
                 jsonDialog = None
             
             if msg == "ping":
-                ping = LL.pingt
-                reply = reply % (ping)
+                pingr = LL.pingt
+                reply = reply.format(pingr)
+            
+#            if "{}" in reply and jsonDialog == "interactions":
+#                reply = reply.format(username)
 
             return reply
 
@@ -59,9 +61,11 @@ class maya_reply_usermessage:
 
             try: 
                 reply = pars.LoadDialog(msg, jsonDialog)
-                
+                pars.Usage(jsonDialog)
             except:
                 jsonDialog = None
-            reply = reply % (sendname)
-
+            
+            if "{}" in reply:
+                reply = reply.format(takename)
+            
             return reply
