@@ -1,20 +1,20 @@
 {
     "equals":{
-        "ping":["Elaboration time: {} ms!"],
-        "uwu":["UwU"],
-        "dead":["rip ;__;"]
+        "ping":"Elaboration time: {} ms!",
+        "uwu":"UwU",
+        "dead":"rip ;__;"
 
     },
     
     "interactions":{
-        "hug me":["*strongly hugs {} * ^^"]
+        "hug me":"*strongly hugs {} * ^^"
     },
     "simple_interactions":{
-        "*pat*":["*purrs* (~.~)"]
+        "*pat*":"*purrs* (~.~)"
     },
     "bot_command":{},
     "admin_commands":{
-        "ban":["Alright! *grabs uname 's collar and throws it inside the garbage bin"]
+        "ban":"Alright! *grabs uname 's collar and throws it inside the garbage bin"
     },
     "daytime":{}
 
