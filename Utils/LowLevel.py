@@ -25,9 +25,9 @@ def uptime():
     return uptime
 
 def pingt():
-    response_list = ping('8.8.8.8', size=40, count=1)
-    pingr = float(response_list.rtt_avg_ms)
-    Log.i(pingr)
+    response_list = ping('8.8.8.8', size=1000, count=1)
+    pingr = response_list.rtt_avg_ms
+    Log.i("response time: " + str(pingr) + " ms")
     return pingr
 
 def getAntispam():

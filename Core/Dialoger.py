@@ -39,7 +39,7 @@ class maya_trigger:
                 jsonDialog = None
             
             if msg == "ping":
-                pingr = LL.pingt
+                pingr = LL.pingt()
                 reply = reply.format(pingr)
             
 #            if "{}" in reply and jsonDialog == "interactions":
