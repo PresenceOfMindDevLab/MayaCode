@@ -12,16 +12,27 @@
 # 888       888 "Y888888  "Y88888 "Y888888         "Y8888P"   "Y88P"   "Y88888  "Y8888  
 #                             888                                                       
 #                        Y8b d88P                                                       
-#                         "Y88P"  
-
-import Core.Base as Base
+#                         "Y88P"   
+from Core import Base as Base
 from Utils import Logger as Log
-from Core.MayaChan import telegram_chatbot
 
-bot = telegram_chatbot("Files/config.cfg")
+from pythonping import ping
+import time
+import yaml
 
-if __name__ == "__main__":
-    bot.sendbootmsg("Booted!")
-    Log.i("Starting Maya-Project, version 0.0.1")
-    Base.MayaRun()
-    Base.idle()
+def uptime():
+    uptime = time.time() - Base.startTime
+    return uptime
+
+def pingt():
+    response_list = ping('8.8.8.8', size=1000, count=1)
+    pingr = response_list.rtt_avg_ms
+    Log.i("response time: " + str(pingr) + " ms")
+    return pingr
+
+def getAntispam():
+    with open("Core/Data/yaml/settings.yaml", 'r') as stream:
+        try:
+            print(yaml.safe_load(stream))
+        except yaml.YAMLError as exc:
+            print(exc)

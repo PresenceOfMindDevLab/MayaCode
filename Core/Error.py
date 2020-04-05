@@ -20,3 +20,35 @@ class MayaError(Exception):
 
     def __str__(self):
         return self.message
+
+class Unauthorized(MayaError):
+    def __init__(self):
+        self.message = "Not autorized"
+
+class InvalidKickTime(MayaError):
+    def __init__(self, until):
+        super(InvalidKickTime, self).__init__("%s is not allowed" % until)
+
+class NoQuotedMessage(MayaError):
+    def __init__(self):
+        self.message = "Not quoted"
+
+class NotEnoughtRights(MayaError):
+    def __init__(self):
+        self.message = "Bot has no permission for that."
+
+class ServerError(Exception):
+    def __init__(self, message):
+        super(ServerError, self).__init__()
+        self.message = message
+
+    def __str__(self):
+        return '%s' % self.message
+
+class TelegramError(Exception):
+    def __init__(self, message):
+        super(TelegramError, self).__init__()
+        self.message = message
+
+    def __str__(self):
+        return '%s' % self.message

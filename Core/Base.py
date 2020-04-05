@@ -16,8 +16,8 @@
 
 from Core.MayaChan import telegram_chatbot
 # ToDo 
-# from Utils import Logger as Log
-# from Core.Dialoger import maya_trigger, maya_reply_usermessage 
+from Utils import Logger as Log
+from Core.Dialoger import maya_trigger, maya_reply_usermessage 
 
 import operator
 import re
@@ -28,12 +28,10 @@ import psutil
 import json
 
 
-bot = telegram_chatbot("config.cfg")
+bot = telegram_chatbot("Files/config.cfg")
 trigger = maya_trigger()
 repum = maya_reply_usermessage()
-
-bot.sendbootmsg("Booted!")
-Log.i("Starting Maya-Project, version 0.0.1")
+startTime = time.time()
 
 def MayaRun():
     update_id = None
@@ -51,13 +49,13 @@ def MayaRun():
 
                 update_id = item["update_id"]
                 try:
- 
+
                     message = str(item["message"]["text"])
- 
+
                 except:
- 
+
                     message = None
- 
+
                 from_ = item["message"]["from"]["id"]
                 chat_ = item["message"]["chat"]["id"]
                 first_name_ = item["message"]["from"]["first_name"]
@@ -117,6 +115,10 @@ def MayaRun():
                     if from_ == chat_:
                         reply = trigger.make_reply(message, username_, first_name_)
                         bot.send_message(reply, from_)
+                    
+                    if from_ != chat_:
+                        reply = trigger.make_reply(message, username_, first_name_)
+                        bot.send_message(reply, chat_)
 
 def idle():
     while True:
@@ -124,4 +126,8 @@ def idle():
 
 # ToDo
 # make query for equals and interactions 
+
 # --> like "ping" and "Maya do this" (BotName + Command)
+
+# make new interaction to take the "take_name" (like maya kill him)
+# --> and username interactions to ping user

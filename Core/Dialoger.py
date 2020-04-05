@@ -13,3 +13,59 @@
 #                             888                                                       
 #                        Y8b d88P                                                       
 #                         "Y88P"  
+
+from Core.MayaChan import telegram_chatbot
+from Utils import LowLevel as LL
+from Core import Parser as pars
+from Utils import Logger as Log
+
+
+class maya_trigger:
+    
+    def make_reply(self, msg, username, first_name):
+        reply = None
+
+        # check for equals and inter
+
+        if msg is not None:
+            
+            msg, jsonDialog = pars.ReadTrigger(msg)
+
+            try: 
+                reply = str(pars.LoadDialog(msg, jsonDialog))
+                pars.Usage(jsonDialog)
+
+            except:
+                jsonDialog = None
+            
+            if msg == "ping":
+                pingr = LL.pingt()
+                reply = reply.format(pingr)
+            
+#            if "{}" in reply and jsonDialog == "interactions":
+#                reply = reply.format(username)
+
+            return reply
+
+
+
+class maya_reply_usermessage:
+    
+    def reply_to_usermessage(self, msg, sendname, takename):
+
+        # check for sinter
+
+        if msg is not None:
+            
+            msg, jsonDialog = pars.ReadReply(msg)
+
+            try: 
+                reply = pars.LoadDialog(msg, jsonDialog)
+                pars.Usage(jsonDialog)
+            except:
+                jsonDialog = None
+            
+            if "{}" in reply:
+                reply = reply.format(takename)
+            
+            return reply

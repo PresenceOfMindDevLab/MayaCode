@@ -12,11 +12,11 @@
 # 888       888 "Y888888  "Y88888 "Y888888         "Y8888P"   "Y88P"   "Y88888  "Y8888  
 #                             888                                                       
 #                        Y8b d88P                                                       
-#                         "Y88P"                                                                                                                                                                    
-
+#                         "Y88P"
 
 import requests
-import json 
+import os
+import json
 import configparser as cfg
 
 class telegram_chatbot():

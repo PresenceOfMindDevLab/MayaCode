@@ -1,0 +1,21 @@
+{
+    "equals":{
+        "ping":"Elaboration time: {} ms!",
+        "uwu":"UwU",
+        "dead":"rip ;__;"
+
+    },
+    
+    "interactions":{
+        "hug me":"*strongly hugs {} * ^^"
+    },
+    "simple_interactions":{
+        "*pat*":"*purrs* (~.~)"
+    },
+    "bot_command":{},
+    "admin_commands":{
+        "ban":"Alright! *grabs {}'s collar and throws it inside the garbage bin"
+    },
+    "daytime":{}
+
+}
