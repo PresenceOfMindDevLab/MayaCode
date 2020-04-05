@@ -126,6 +126,7 @@ def idle():
 
 # ToDo
 # make query for equals and interactions 
+
 # --> like "ping" and "Maya do this" (BotName + Command)
 
 # make new interaction to take the "take_name" (like maya kill him)
