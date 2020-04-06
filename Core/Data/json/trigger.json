@@ -4,6 +4,7 @@
     "bot_command": [],
     "admin_commands": ["ban"],
     "daytime":[],
-    "simple_interactions":["*pat*"], 
+    "simple_interactions":["*pat*"],
+    "sticker":[],
     "bot_comm_symbol": "/"    
 }

@@ -18,6 +18,12 @@ import requests
 import os
 import json
 import configparser as cfg
+import time
+
+from Utils import Logger as Log
+from Core.Error import InvalidKickTime, Unauthorized, NoQuotedMessage, UnkownError, NotEnoughtRights, BadRequest, NotFound404
+
+bans = {"h12": 43200, "h10": 36000, "h8": 28800, "h4": 14400, "h2": 7200, "h1": 3600, "h0": 1800, "ever": 0}
 
 class telegram_chatbot():
     def __init__(self, config):
@@ -35,7 +41,30 @@ class telegram_chatbot():
     def send_message(self, msg, chat_id):
         url = self.base + "sendMessage?chat_id={}&text={}".format(chat_id, msg)
         if msg is not None:
-            requests.get(url)
+            value = requests.get(url)
+            self.getError(value)
+
+    def kick_chat_member(self, chat_id, user_id, until=None):
+        if until:
+            if until not in bans:
+                Log.d("Invalid kick time")
+                raise InvalidKickTime(until)
+
+            until = time.time() + bans[until]
+        url = self.base +"kickChatMember?chat_id={}&user_id={}&until_date={}".format(chat_id, user_id, until)
+        value = requests.get(url)
+        self.getError(value)
+
+    def get_chat_administrators(self, chat_id):
+        url = self.base +"getChatAministrators?chat_id={}".format(chat_id)
+        admins = requests.get(url)
+        self.getError(admins)
+        return admins
+
+    def send_sticker(self, chat_id, sticker=None, repyl_to_message_id=None):
+        url = self.base + "sendSticker?sticker={}&chat_id={}&reply_to_message_id={}".format(sticker, chat_id, repyl_to_message_id)
+        value = requests.get(url)
+        self.getError(value)
 
     def sendbootmsg(self, bootmsg):
         url = self.base + "sendMessage?chat_id={}&text={}".format(self.masterID, bootmsg)
@@ -50,3 +79,20 @@ class telegram_chatbot():
         parser = cfg.ConfigParser()
         parser.read(config)
         return parser.get('creds', 'masterID')
+
+    def getError(self, value):
+        if value.status_code != 200:
+            if "rights" in value.json()["description"]:
+                raise NotEnoughtRights
+
+            if value.status_code == 403 or "Unauthorized" in value.json()["description"]:
+                raise Unauthorized
+
+            if value.status_code == 400:
+                raise BadRequest(value.json()["description"] + " :(")
+
+            if value.status_code == 400:
+                raise NotFound404
+
+            else:
+                raise UnkownError(value.json()["description"])
