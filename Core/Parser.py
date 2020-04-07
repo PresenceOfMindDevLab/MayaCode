@@ -16,7 +16,7 @@
 
 import requests
 import json
-
+import yaml
 
 def ReadTrigger(msg):
     jsonDialog = None
@@ -74,3 +74,11 @@ def Usage(jsonDialog):
         rep = data[jsonDialog][count]
         json.dump(rep, usage)
 
+def ReadSettings(section, segment, items):
+    with open("Core/Data/yaml/Settings.yaml","r") as setting:
+        data = yaml.full_load(setting)
+        try:
+            info = data[section][segment][items]
+        except:
+            data = None
+        return info

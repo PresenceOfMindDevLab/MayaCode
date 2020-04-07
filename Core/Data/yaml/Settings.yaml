@@ -1,2 +1,8 @@
-antispam:
-  "antispam_time": 5.0
+LowLevel:
+  
+  antispam: 
+    antispam_time: 5.0
+    antispam_enabled: True
+  
+  ping:
+    ping_ip: 172.217.0.0
