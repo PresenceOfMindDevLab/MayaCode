@@ -16,6 +16,7 @@
     "admin_commands":{
         "ban":"Alright! *grabs {}'s collar and throws it inside the garbage bin"
     },
-    "daytime":{}
+    "daytime":{},
+    "sticker":{}
 
 }

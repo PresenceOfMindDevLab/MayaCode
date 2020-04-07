@@ -52,3 +52,15 @@ class TelegramError(Exception):
 
     def __str__(self):
         return '%s' % self.message
+
+class UnkownError(MayaError):
+    def __init__(self, value):
+        self.message = "Unknown error: %s" % value
+
+class BadRequest(MayaError):
+    def __init__(self, desc):
+        self.message = "%s" % desc
+
+class NotFound404(MayaError):
+    def __init__(self):
+        self.message = "The requested resource was not found."
