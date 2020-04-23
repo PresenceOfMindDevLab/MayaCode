@@ -39,7 +39,7 @@ class telegram_chatbot():
         return json.loads(r.content)
 
     def send_message(self, msg, chat_id):
-        url = self.base + "sendMessage?chat_id={}&text={}".format(chat_id, msg)
+        url = self.base + "sendMessage?chat_id={}&text={}&parse_mode=Markdown".format(chat_id, msg)
         if msg is not None:
             value = requests.get(url)
             self.getError(value)
@@ -59,7 +59,7 @@ class telegram_chatbot():
         url = self.base +"getChatAministrators?chat_id={}".format(chat_id)
         admins = requests.get(url)
         self.getError(admins)
-        return admins
+        return json.loads(admins.content)
 
     def send_sticker(self, chat_id, sticker=None, repyl_to_message_id=None):
         url = self.base + "sendSticker?sticker={}&chat_id={}&reply_to_message_id={}".format(sticker, chat_id, repyl_to_message_id)
@@ -91,7 +91,7 @@ class telegram_chatbot():
             if value.status_code == 400:
                 raise BadRequest(value.json()["description"] + " :(")
 
-            if value.status_code == 400:
+            if value.status_code == 404:
                 raise NotFound404
 
             else:
