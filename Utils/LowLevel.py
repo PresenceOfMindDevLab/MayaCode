@@ -23,10 +23,11 @@ import yaml
 
 def uptime():
     uptime = time.time() - Base.startTime
+    uptime = time.strftime("%H:%M:%S", time.gmtime(uptime))
     return uptime
 
 def pingt():
-    response_list = ping(pars.ReadSettings("LowLevel","ping","ping_ip"), size=1000, count=1)
+    response_list = ping(pars.ReadSettings("LowLevel","ping","ping_ip"), size=40, count=1)
     pingr = response_list.rtt_avg_ms
     Log.i("response time: " + str(pingr) + " ms")
     return pingr
