@@ -14,6 +14,7 @@
 #                        Y8b d88P                                                       
 #                         "Y88P"   
 from Core import Base as Base
+from Core.MayaChan import telegram_chatbot as bot
 from Core import Parser as pars
 from Utils import Logger as Log
 
@@ -40,3 +41,28 @@ def getAntispam():
     except:
         Antispam = False
     return as_time
+
+def getAdmins(chat_id, user_id):
+    adminAr = bot.get_chat_administrators(chat_id)
+    adminAr = adminAr["result"]
+    Log.d("Get Group Admins")
+    Log.d(adminAr)
+    if adminAr:
+        for item in adminAr:
+            i = 0
+            admin = False
+            while admin == False:
+                try:
+                    admin_id = str(item[i]["user"]["id"])
+                    if user_id == admin_id:
+                        admin = True
+                    else:
+                        admin = False
+                        i = i +1
+                except:
+                    admin_id = None
+                    admin = False
+                    pass
+                    
+            pass
+            return admin
