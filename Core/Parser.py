@@ -18,6 +18,8 @@ import requests
 import json
 import yaml
 
+from Utils import Logger as Log
+
 def ReadTrigger(msg):
     branch = None
     with open("Core/Data/json/trigger.json") as trigger:
@@ -76,6 +78,7 @@ def Usage(branch):
         data = json.load(usage)
         count = data[branch]
         count = count + 1
+        Log.d("Used " + branch + " " + count + " times!")
         rep = data[branch][count]
         json.dump(rep, usage)
 
@@ -87,3 +90,9 @@ def ReadSettings(section, segment, items):
         except:
             data = None
         return info
+
+def ReadSticker(pack, sticker):
+    with open("Core/Data/json/sticker.json") as stk:
+        data = json.load(stk)
+        stk = data[pack][sticker]
+        return stk
