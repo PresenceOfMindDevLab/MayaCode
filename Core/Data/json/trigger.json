@@ -1,5 +1,5 @@
 {
-    "equals": ["ping","uwu","dead"],
+    "equals": ["ping","uwu","dead","info"],
     "interactions": ["hug me"],
     "bot_command": [],
     "admin_commands": ["ban"],

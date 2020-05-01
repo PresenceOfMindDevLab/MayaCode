@@ -18,60 +18,68 @@ import requests
 import json
 import yaml
 
+from Utils import Logger as Log
+
 def ReadTrigger(msg):
-    jsonDialog = None
+    branch = None
     with open("Core/Data/json/trigger.json") as trigger:
         data = json.load(trigger)
         equals = data["equals"]
         inter = data["interactions"]
 
         if msg in equals:
-            jsonDialog = "equals"
+            branch = "equals"
             msg = msg
-            return msg, jsonDialog
+            return msg, branch
 
         else:
             if msg.split(" ")[0] == "maya" or msg.split(" ")[0] == " Maya":
                 msg = msg.split(' ', 1)[1]
                 if msg in inter:
-                    jsonDialog = "interactions"
+                    branch = "interactions"
                     msg = msg
-                    return msg, jsonDialog
+                    return msg, branch
                 else:
-                    jsonDialog = None
-                    return msg, jsonDialog
+                    branch = None
+                    return msg, branch
             else:
-                jsonDialog = None
-                return msg, jsonDialog
+                branch = None
+                return msg, branch
 
 
 def ReadReply(msg):
-    jsonDialog = None
+    branch = None
     with open("Core/Data/json/trigger.json") as trigger:
         data = json.load(trigger)
         sinter = data["simple_interactions"]
+        admin = data["admin_commands"]
         if msg in sinter:
-            jsonDialog = "simple_interactions"
+            branch = "simple_interactions"
             msg = msg
-            return msg, jsonDialog
+            return msg, branch
+        if msg in admin:
+            branch = "admin_commands"
+            msg = msg
+            return msg, branch
         else:
-            jsonDialog = None
-            return msg, jsonDialog
+            branch = None
+            return msg, branch
 
-def LoadDialog(msg, jsonDialog):
+def LoadDialog(msg, branch):
     reply = None
     with open("Core/Data/json/Dialogs.json") as dialogs:
         data = json.load(dialogs)
-        reply = data[jsonDialog][msg]
+        reply = data[branch][msg]
         return reply
 
 
-def Usage(jsonDialog):
+def Usage(branch):
     with open("Core/Data/json/trigger_usage.json") as usage:
         data = json.load(usage)
-        count = data[jsonDialog]
+        count = data[branch]
         count = count + 1
-        rep = data[jsonDialog][count]
+        Log.d("Used " + branch + " " + count + " times!")
+        rep = data[branch][count]
         json.dump(rep, usage)
 
 def ReadSettings(section, segment, items):
@@ -82,3 +90,9 @@ def ReadSettings(section, segment, items):
         except:
             data = None
         return info
+
+def ReadSticker(pack, sticker):
+    with open("Core/Data/json/sticker.json") as stk:
+        data = json.load(stk)
+        stk = data[pack][sticker]
+        return stk

@@ -15,7 +15,7 @@
 #                         "Y88P"    
 
 from Core.MayaChan import telegram_chatbot
-# ToDo 
+from Core import Parser as pars
 from Utils import Logger as Log
 from Core.Dialoger import maya_trigger, maya_reply_usermessage 
 
@@ -32,10 +32,11 @@ bot = telegram_chatbot("Files/config.cfg")
 trigger = maya_trigger()
 repum = maya_reply_usermessage()
 startTime = time.time()
+Log.d("Set start time: " + str(time.strftime("%H:%M:%S", time.gmtime(startTime))))
 
 def MayaRun():
     update_id = None
-
+    Log.d("Run Maya")
     while True:
 
         updates = bot.get_updates(offset=update_id)
@@ -85,10 +86,12 @@ def MayaRun():
 
                 if new_chat_member_ is not None:
 
-                    new_chat_member_name_ = item["message"]["new_chat_participant"]["username"]
+                    new_chat_member_name_ = item["message"]["new_chat_participant"]["first_name"]
                     Log.a("welcome")
-                    reply = "Welcome @" + new_chat_member_name_ + " to " + chat_name_ + " ^^"
+                    reply = "Welcome " + new_chat_member_name_ + " to " + chat_name_ + " ^^"
                     bot.send_message(reply, chat_)
+                    stk = pars.ReadSticker("manomp","welcome")
+                    bot.send_sticker(chat_, stk)
 
                 if gone_chat_member_ is not None:
 
@@ -106,7 +109,8 @@ def MayaRun():
                 if reply_to_message_ is not None:
 
                     reply_to_message_name_ = item["message"]["reply_to_message"]["from"]["first_name"]
-                    reply = repum.reply_to_usermessage(message, first_name_, reply_to_message_name_)
+                    reply_id_ = item["message"]["reply_to_message"]["from"]["id"]
+                    reply = repum.reply_to_usermessage(message, first_name_, reply_to_message_name_, chat_, reply_id_)
                     bot.send_message(reply, chat_)
 
 
@@ -122,6 +126,7 @@ def MayaRun():
 
 def idle():
     while True:
+        Log.d("Run Idle")
         time.sleep(10)
 
 # ToDo

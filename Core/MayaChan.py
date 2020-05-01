@@ -32,14 +32,14 @@ class telegram_chatbot():
         self.masterID = self.ReadMasterID(config)
 
     def get_updates(self, offset=None):
-        url = self.base + "getUpdates?timeout=10"
+        url = self.base + "getUpdates?timeout=10&limit=None"
         if offset:
             url = url + "&offset={}".format(offset + 1)
         r = requests.get(url)
         return json.loads(r.content)
 
     def send_message(self, msg, chat_id):
-        url = self.base + "sendMessage?chat_id={}&text={}".format(chat_id, msg)
+        url = self.base + "sendMessage?chat_id={}&text={}&parse_mode=Markdown".format(chat_id, msg)
         if msg is not None:
             value = requests.get(url)
             self.getError(value)
@@ -56,10 +56,9 @@ class telegram_chatbot():
         self.getError(value)
 
     def get_chat_administrators(self, chat_id):
-        url = self.base +"getChatAministrators?chat_id={}".format(chat_id)
+        url = self.base +"getChatAdministrators?chat_id={}".format(chat_id)
         admins = requests.get(url)
-        self.getError(admins)
-        return admins
+        return json.loads(admins.content)
 
     def send_sticker(self, chat_id, sticker=None, repyl_to_message_id=None):
         url = self.base + "sendSticker?sticker={}&chat_id={}&reply_to_message_id={}".format(sticker, chat_id, repyl_to_message_id)
@@ -91,7 +90,7 @@ class telegram_chatbot():
             if value.status_code == 400:
                 raise BadRequest(value.json()["description"] + " :(")
 
-            if value.status_code == 400:
+            if value.status_code == 404:
                 raise NotFound404
 
             else:
