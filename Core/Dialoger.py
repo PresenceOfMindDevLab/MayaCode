@@ -29,14 +29,14 @@ class maya_trigger:
 
         if msg is not None:
             
-            msg, jsonDialog = pars.ReadTrigger(msg)
+            msg, branch = pars.ReadTrigger(msg)
 
             try: 
-                reply = str(pars.LoadDialog(msg, jsonDialog))
-                pars.Usage(jsonDialog)
+                reply = str(pars.LoadDialog(msg, branch))
+                pars.Usage(branch)
 
             except:
-                jsonDialog = None
+                branch = None
             
             if msg == "ping":
                 pingr = LL.pingt()
@@ -45,7 +45,7 @@ class maya_trigger:
             if msg == "info":
                 reply = reply.format(LL.uptime(), LL.pingt())
             
-#            if "{}" in reply and jsonDialog == "interactions":
+#            if "{}" in reply and branch == "interactions":
 #                reply = reply.format(username)
 
             return reply
@@ -56,44 +56,38 @@ class maya_reply_usermessage:
 
     def reply_to_usermessage(self, msg, sendname, takename, chat_id, user_id):
         reply = None
-
+        Log.d("Running RTU")
+        Log.d(msg + sendname + takename + str(chat_id) + str(user_id))
         if msg is not None:
             
-            msg, jsonDialog = pars.ReadReply(msg)
+            msg, branch = pars.ReadReply(msg)
+            Log.d(msg + " " + branch)
             try:
-                if jsonDialog == "admin_commands":
-        
-                    admins = bot.get_chat_administrators(chat_id)
-                    admins = admins["result"]
-
-                    if admins:
-
-                        for item in admins:
-
-                            try:
-                                admin = str(item["user"]["text"])
-                            except:
-                                admin = None
-                                
-                            try:
-                                admin_ = item["user"][user_id]
-                                reply = "Sorry... I can't ban an admin"
-                            except:
-                                admin_ = None
-                                bot.kick_chat_member(chat_id, user_id, until=0)
-                                stk = pars.ReadSticker("manomp", "ban")
-                                bot.send_sticker(chat_id, stk)
-                                reply = reply.format(takename)
+                if branch == "admin_commands":
+                    admin = LL.getAdmins(chat_id, user_id)
+                    Log.d(admin)
+                    if admin == True:
+                        reply = "Sorry... I can't do this to an admin"
+                    if admin == False:
+                        if msg == "ban":
+                            Log.d("ban function")
+                            bot.kick_chat_member(chat_id, user_id, until=0)
+                            stk = pars.ReadSticker("manomp", "ban")
+                            bot.send_sticker(chat_id, stk)
+                            reply = pars.LoadDialog(msg, branch)
+                            reply = reply.format(takename)
+                            return reply
 
             
-                if jsonDialog == "sinter":
-                    reply = pars.LoadDialog(msg, jsonDialog)
-                    pars.Usage(jsonDialog)
-
-                    if takename is "MayaChan":
-                        reply = pars.LoadDialog(msg, jsonDialog)
+                if branch == "simple_interactions":
+                    Log.d(branch)
+                    if takename == "MayaChan":
+                        reply = pars.LoadDialog(msg, branch)
+                        Log.d(reply)
+                        pars.Usage(branch)
+                        return reply
             except:
-                jsonDialog = None
+                branch = None
     
             return reply
 

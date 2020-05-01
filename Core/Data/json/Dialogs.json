@@ -3,7 +3,7 @@
         "ping":"Elaboration time: {} ms!",
         "uwu":"UwU",
         "dead":"rip ;__;",
-        "info":"*Bot Info* \nCodename: `MayaChan` \nUptime: `{}` \nPing: `{}` "
+        "info":"*Bot Info* \nCodename: `MayaChan` \nUptime: `{}` \nPing: `{}ms` "
 
     },
     

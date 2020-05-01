@@ -32,7 +32,7 @@ class telegram_chatbot():
         self.masterID = self.ReadMasterID(config)
 
     def get_updates(self, offset=None):
-        url = self.base + "getUpdates?timeout=10"
+        url = self.base + "getUpdates?timeout=10&limit=None"
         if offset:
             url = url + "&offset={}".format(offset + 1)
         r = requests.get(url)
@@ -56,9 +56,8 @@ class telegram_chatbot():
         self.getError(value)
 
     def get_chat_administrators(self, chat_id):
-        url = self.base +"getChatAministrators?chat_id={}".format(chat_id)
+        url = self.base +"getChatAdministrators?chat_id={}".format(chat_id)
         admins = requests.get(url)
-        self.getError(admins)
         return json.loads(admins.content)
 
     def send_sticker(self, chat_id, sticker=None, repyl_to_message_id=None):
