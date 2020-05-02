@@ -97,7 +97,7 @@ def MayaRun():
 
                     gone_chat_member_name_ = item["message"]["left_chat_member"]["first_name"]
                     Log.a("Left")
-                    reply = "Goodby " + gone_chat_member_name_ + " ;__;"
+                    reply = "Goodby " + gone_chat_member_name_ 
                     bot.send_message(reply, chat_)
 
 

@@ -74,13 +74,14 @@ def LoadDialog(msg, branch):
 
 
 def Usage(branch):
-    with open("Core/Data/json/trigger_usage.json") as usage:
-        data = json.load(usage)
-        count = data[branch]
-        count = count + 1
-        Log.d("Used " + branch + " " + count + " times!")
-        rep = data[branch][count]
-        json.dump(rep, usage)
+    with open("Core/Data/json/trigger_usage.json") as use:
+        data = json.load(use)
+        count = data[branch]["count"]
+        count = int(count) + 1
+        Log.d("Used " + branch + " " + str(count) + " times!")
+        data[branch]["count"] = count
+        with open("Core/Data/json/trigger_usage.json", "w") as use:
+            json.dump(data, use)
 
 def ReadSettings(section, segment, items):
     with open("Core/Data/yaml/Settings.yaml","r") as setting:
