@@ -14,10 +14,12 @@
 #                        Y8b d88P                                                       
 #                         "Y88P"  
 
-from Core.MayaChan import telegram_chatbot as bot
+from Core.MayaChan import telegram_chatbot
 from Utils import LowLevel as LL
 from Core import Parser as pars
 from Utils import Logger as Log
+
+bot = telegram_chatbot("Files/config.cfg")
 
 
 class maya_trigger:
@@ -57,7 +59,6 @@ class maya_reply_usermessage:
     def reply_to_usermessage(self, msg, sendname, takename, chat_id, user_id):
         reply = None
         Log.d("Running RTU")
-        Log.d(msg + sendname + takename + str(chat_id) + str(user_id))
         if msg is not None:
             
             msg, branch = pars.ReadReply(msg)
@@ -71,11 +72,11 @@ class maya_reply_usermessage:
                     if admin == False:
                         if msg == "ban":
                             Log.d("ban function")
+                            reply = pars.LoadDialog(msg, branch)
+                            reply = reply.format(takename)
                             bot.kick_chat_member(chat_id, user_id, until=0)
                             stk = pars.ReadSticker("manomp", "ban")
                             bot.send_sticker(chat_id, stk)
-                            reply = pars.LoadDialog(msg, branch)
-                            reply = reply.format(takename)
                             return reply
 
             

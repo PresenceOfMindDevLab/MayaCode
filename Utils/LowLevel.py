@@ -14,13 +14,15 @@
 #                        Y8b d88P                                                       
 #                         "Y88P"   
 from Core import Base as Base
-from Core.MayaChan import telegram_chatbot as bot
+from Core.MayaChan import telegram_chatbot
 from Core import Parser as pars
 from Utils import Logger as Log
 
 from pythonping import ping
 import time
 import yaml
+
+bot = telegram_chatbot("Files/config.cfg")
 
 def uptime():
     uptime = time.time() - Base.startTime
@@ -46,23 +48,25 @@ def getAdmins(chat_id, user_id):
     adminAr = bot.get_chat_administrators(chat_id)
     adminAr = adminAr["result"]
     Log.d("Get Group Admins")
-    Log.d(adminAr)
     if adminAr:
-        for item in adminAr:
-            i = 0
-            admin = False
-            while admin == False:
-                try:
-                    admin_id = str(item[i]["user"]["id"])
-                    if user_id == admin_id:
-                        admin = True
-                    else:
-                        admin = False
-                        i = i +1
-                except:
-                    admin_id = None
-                    admin = False
-                    pass
+        i = 0
+        admin = False
+        print(user_id)
+        while admin != True:
+            try:
+                admin_id = str(adminAr[i]["user"]["id"])
+                print(admin_id)
+                if int(user_id) != int(admin_id):
+                    i = i +1
+                else:
+                    admin = True
+                    print("true")
                     
-            pass
-            return admin
+            except:
+                admin_id = None
+                print("False")
+                break
+        pass
+
+        print(admin)
+        return admin
