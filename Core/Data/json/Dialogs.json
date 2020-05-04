@@ -15,7 +15,7 @@
     },
     "bot_command":{},
     "admin_commands":{
-        "ban":"Alright! *grabs {}'s collar and throws it inside the garbage bin"
+        "ban":"Alright! *grabs {}'s collar and throws it inside the garbage bin*"
     },
     "daytime":{},
     "sticker":{}
