@@ -51,22 +51,17 @@ def getAdmins(chat_id, user_id):
     if adminAr:
         i = 0
         admin = False
-        print(user_id)
         while admin != True:
             try:
                 admin_id = str(adminAr[i]["user"]["id"])
-                print(admin_id)
                 if int(user_id) != int(admin_id):
                     i = i +1
                 else:
                     admin = True
-                    print("true")
                     
             except:
                 admin_id = None
-                print("False")
                 break
         pass
 
-        print(admin)
         return admin

@@ -62,16 +62,13 @@ class maya_reply_usermessage:
         if msg is not None:
             
             msg, branch = pars.ReadReply(msg)
-            Log.d(msg + " " + branch)
             try:
                 if branch == "admin_commands":
                     admin = LL.getAdmins(chat_id, user_id)
-                    Log.d(admin)
                     if admin == True:
                         reply = "Sorry... I can't do this to an admin"
                     if admin == False:
                         if msg == "ban":
-                            Log.d("ban function")
                             reply = pars.LoadDialog(msg, branch)
                             reply = reply.format(takename)
                             bot.kick_chat_member(chat_id, user_id, until=0)
@@ -81,10 +78,8 @@ class maya_reply_usermessage:
 
             
                 if branch == "simple_interactions":
-                    Log.d(branch)
                     if takename == "MayaChan":
                         reply = pars.LoadDialog(msg, branch)
-                        Log.d(reply)
                         pars.Usage(branch)
                         return reply
             except:
