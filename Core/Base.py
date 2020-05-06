@@ -118,12 +118,12 @@ def MayaRun():
                 if reply_to_message_ is None:
 
                     if from_ == chat_:
-                        reply = trigger.make_reply(message, username_, first_name_)
-                        bot.send_message(reply, from_)
+                        reply, parse_mode = trigger.make_reply(message, username_, first_name_)
+                        bot.send_message(reply, from_, parse_mode)
                     
                     if from_ != chat_:
-                        reply = trigger.make_reply(message, username_, first_name_)
-                        bot.send_message(reply, chat_)
+                        reply, parse_mode = trigger.make_reply(message, username_, first_name_)
+                        bot.send_message(reply, chat_, parse_mode)
 
 def idle():
     while True:

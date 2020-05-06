@@ -26,7 +26,7 @@ class maya_trigger:
     
     def make_reply(self, msg, username, first_name):
         reply = None
-
+        parse_mode = None
         # check for equals and inter
 
         if msg is not None:
@@ -46,11 +46,13 @@ class maya_trigger:
                 
             if msg == "info":
                 reply = reply.format(LL.uptime(), LL.pingt())
-            
-#            if "{}" in reply and branch == "interactions":
-#                reply = reply.format(username)
+                parse_mode = "markdown"
 
-            return reply
+            if branch == "interactions":
+                if "{}" in reply:
+                    reply = reply.format(username)
+
+            return reply, parse_mode
 
 
 
@@ -86,14 +88,3 @@ class maya_reply_usermessage:
                 branch = None
     
             return reply
-
-#                if user_id in admins:
-#                    reply = "Sorry... I can't ban an admin"
-#                    return reply --> add exception later
-                
-                
-
-
-            #if str("{}") in reply:
-            #    reply = reply.format(takename)
-            
