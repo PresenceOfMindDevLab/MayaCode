@@ -84,7 +84,13 @@ class maya_reply_usermessage:
                         reply = pars.LoadDialog(msg, branch)
                         pars.Usage(branch)
                         return reply
+
+                if branch == "user_interactions":
+                    reply = pars.LoadDialog(msg, branch)
+                    pars.Usage(branch)
+                    
             except:
                 branch = None
-    
+            if "{}" in reply:
+                reply = reply.format(takename)
             return reply

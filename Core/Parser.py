@@ -33,7 +33,7 @@ def ReadTrigger(msg):
             return msg, branch
 
         else:
-            if msg.split(" ")[0] == "maya" or msg.split(" ")[0] == " Maya":
+            if msg.split(" ")[0] == "maya" or msg.split(" ")[0] == "Maya":
                 msg = msg.split(' ', 1)[1]
                 if msg in inter:
                     branch = "interactions"
@@ -52,6 +52,7 @@ def ReadReply(msg):
     with open("Core/Data/json/trigger.json") as trigger:
         data = json.load(trigger)
         sinter = data["simple_interactions"]
+        uinter = data["user_interactions"]
         admin = data["admin_commands"]
         if msg in sinter:
             branch = "simple_interactions"
@@ -61,6 +62,12 @@ def ReadReply(msg):
             branch = "admin_commands"
             msg = msg
             return msg, branch
+        if msg.split(" ")[0] == "maya" or msg.split(" ")[0] == "Maya":
+            msg = msg.split(' ', 1)[1]
+            if msg in uinter:
+                branch = "user_interactions"
+                msg = msg
+                return msg, branch
         else:
             branch = None
             return msg, branch

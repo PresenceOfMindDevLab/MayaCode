@@ -1,5 +1,1 @@
-{
-    "equals":"0",
-    "interactions": "0",
-    "simple_interactions": "0"
-}
+{"equals": {"count": 4}, "interactions": {"count": 3}, "simple_interactions": {"count": 0}, "admin_commands": {"count": 0}, "user_interactions":{"count": 0}}

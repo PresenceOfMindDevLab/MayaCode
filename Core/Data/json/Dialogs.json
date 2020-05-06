@@ -13,6 +13,9 @@
     "simple_interactions":{
         "*pat*":"*purrs* (~.~)"
     },
+    "user_interactions":{
+        "kill him":"As you wish! *wears a strap on, pins {} on all fours and applies death by snu snu*"
+    },
     "bot_command":{},
     "admin_commands":{
         "ban":"Alright! *grabs {}'s collar and throws it inside the garbage bin*"

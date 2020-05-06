@@ -5,6 +5,7 @@
     "admin_commands": ["ban"],
     "daytime":[],
     "simple_interactions":["*pat*"],
+    "user_interactions":["kill him"],
     "sticker":[],
     "bot_comm_symbol": "/"    
 }
