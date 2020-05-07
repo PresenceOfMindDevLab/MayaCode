@@ -19,6 +19,7 @@ import json
 import yaml
 
 from Utils import Logger as Log
+from Utils import LowLevel as LL
 
 def ReadTrigger(msg):
     branch = None
@@ -104,3 +105,23 @@ def ReadSticker(pack, sticker):
         data = json.load(stk)
         stk = data[pack][sticker]
         return stk
+
+def getWarnUser(chat_id, user_id):
+    with open("Core/Data/json/warnings.json")as warn:
+        data = json.load(warn)
+        try:
+            warnings = data[chat_id][user_id]["warnings"]
+            count, item = LL.warnUser(warnings)
+            data[chat_id][user_id]["warnings"] = count
+            with open("Core/Data/json/warnings.json", "w") as warn:
+                json.dump(data, warn)
+                if count == 3:
+                    del data[chat_id][user_id]
+                    warn.write[json.dumps(data)]
+        except:
+            warnings = None
+            count, item = LL.warnUser(0)
+            data[chat_id][user_id]["warnings"] = count
+            with open("Core/Data/json/warnings.json", "w") as warn:
+                json.dump(data, warn)
+        return count, item
