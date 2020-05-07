@@ -1,5 +1,5 @@
 {
-    "equals": ["ping","uwu","dead","info"],
+    "equals": ["ping","uwu","dead","info","maya"],
     "interactions": ["hug me"],
     "bot_command": [],
     "admin_commands": ["ban"],
@@ -7,5 +7,6 @@
     "simple_interactions":["*pat*"],
     "user_interactions":["kill him"],
     "sticker":[],
+    "lowLevel":["warn1","warn2","warn3"],
     "bot_comm_symbol": "/"    
 }

@@ -3,7 +3,8 @@
         "ping":"Elaboration time: {} ms!",
         "uwu":"UwU",
         "dead":"rip ;__;",
-        "info":"*Bot Info* \nCodename: `MayaChan` \nUptime: `{}` \nPing: `{}ms` "
+        "info":"*Bot Info* \nCodename: `MayaChan` \nUptime: `{}` \nPing: `{}ms` ",
+        "maya":"Yes {}? \n*looks at you*"
 
     },
     
@@ -21,6 +22,11 @@
         "ban":"Alright! *grabs {}'s collar and throws it inside the garbage bin*"
     },
     "daytime":{},
-    "sticker":{}
+    "sticker":{},
+    "lowLevel":{
+        "warn1":"",
+        "warn2":"",
+        "warn3":""
+    }
 
 }
