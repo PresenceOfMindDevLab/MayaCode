@@ -18,6 +18,7 @@ from Core.MayaChan import telegram_chatbot
 from Utils import LowLevel as LL
 from Core import Parser as pars
 from Utils import Logger as Log
+from Core import Manager as Manage
 
 bot = telegram_chatbot("Files/config.cfg")
 
@@ -27,38 +28,17 @@ class maya_trigger:
     def make_reply(self, msg, username, first_name):
         reply = None
         parse_mode = None
-        # check for equals and inter
-
         if msg is not None:
-            
+            reply = None
+            parse_mode = None
             msg, branch = pars.ReadTrigger(msg)
-
-            try: 
-                reply = str(pars.LoadDialog(msg, branch))
-                pars.Usage(branch)
-
-            except:
-                branch = None
-            
-            if msg == "ping":
-                pingr = LL.pingt()
-                reply = reply.format(pingr)
-                
-            if msg == "info":
-                reply = reply.format(LL.uptime(), LL.pingt())
-                parse_mode = "markdown"
-
-            if branch == "interactions":
-                if "{}" in reply:
-                    reply = reply.format(username)
-
-            return reply, parse_mode
-
-
+            reply, parse_mode =  Manage.trigger(msg, branch, username)
+            Log.d(str(reply) + " " + str(parse_mode))
+        return reply, parse_mode
 
 class maya_reply_usermessage:
 
-    def reply_to_usermessage(self, msg, sendname, takename, chat_id, user_id):
+    def reply_to_usermessage(self, msg, sendname, takename, chat_id, from_id, user_id):
         reply = None
         Log.d("Running RTU")
         if msg is not None:
@@ -66,18 +46,8 @@ class maya_reply_usermessage:
             msg, branch = pars.ReadReply(msg)
             try:
                 if branch == "admin_commands":
-                    admin = LL.getAdmins(chat_id, user_id)
-                    if admin == True:
-                        reply = "Sorry... I can't do this to an admin"
-                    if admin == False:
-                        if msg == "ban":
-                            reply = pars.LoadDialog(msg, branch)
-                            reply = reply.format(takename)
-                            bot.kick_chat_member(chat_id, user_id, until=0)
-                            stk = pars.ReadSticker("manomp", "ban")
-                            bot.send_sticker(chat_id, stk)
-                            return reply
-
+                    reply = Manage.admin_commands(msg, chat_id, from_id, user_id, takename, branch)
+                    return reply
             
                 if branch == "simple_interactions":
                     if takename == "MayaChan":
@@ -91,6 +61,7 @@ class maya_reply_usermessage:
                     
             except:
                 branch = None
-            if "{}" in reply:
-                reply = reply.format(takename)
-            return reply
+            if reply is not None:
+                if "{}" in reply:
+                    reply = reply.format(takename)
+        return reply
