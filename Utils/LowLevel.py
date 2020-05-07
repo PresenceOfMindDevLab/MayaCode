@@ -44,13 +44,16 @@ def getAntispam():
         Antispam = False
     return as_time
 
-def getAdmins(chat_id, user_id):
+def getAdmins(chat_id, user_id, from_id):
+    command = False
+    reply = None
     adminAr = bot.get_chat_administrators(chat_id)
     adminAr = adminAr["result"]
     Log.d("Get Group Admins")
     if adminAr:
         i = 0
         admin = False
+        from_admin = False
         while admin != True:
             try:
                 admin_id = str(adminAr[i]["user"]["id"])
@@ -63,5 +66,29 @@ def getAdmins(chat_id, user_id):
                 admin_id = None
                 break
         pass
+        while from_admin != True:
+            try:
+                admin_id = str(adminAr[i]["user"]["id"])
+                if int(from_id) != int(admin_id):
+                    i = i +1
+                else:
+                    from_admin = True
+                    
+            except:
+                from_id = None
+                break
+        pass
+        if admin == True:
+            reply = "Sorry... I can't do this to an admin"
+        if from_admin == False:
+            reply = "Only admins can do that!"
+        if admin != True and from_admin != False:
+            command = True
+        else:
+            command = False
+        return reply, command
 
-        return admin
+def warnUser(warnings):
+    warnings = int(warnings) + 1
+    item = "warn" + str(warnings)
+    return warnings, item
