@@ -8,4 +8,5 @@ ToDo:
 > - reload command <br>
 > - admin commands <br>
 > - typing action <br>
-> - multithreading 
+> - multithreading <br>
+> - New Logging system
