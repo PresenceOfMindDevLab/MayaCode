@@ -9,4 +9,5 @@ ToDo:
 > - admin commands <br>
 > - typing action <br>
 > - multithreading <br>
-> - New Logging system
+> - New Logging system <br>
+> - [Cheshire](https://github.com/HartiChan/CheshireProjectBot) bridge
