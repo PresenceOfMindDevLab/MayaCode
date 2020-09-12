@@ -18,9 +18,10 @@ from Core.MayaChan import telegram_chatbot
 from Core import Parser as pars
 from Utils import Logger as Log
 from Core.Dialoger import maya_trigger, maya_reply_usermessage 
+from Utils import skynet
 
 import operator
-import re
+import re 
 import time
 import random
 import sys
@@ -65,6 +66,11 @@ def MayaRun():
                     username_ = item["message"]["from"]["username"]
                 except:
                     username_ = None
+                
+                try:
+                    last_name_ = item["message"]["from"]["last_Name"]
+                except:
+                    last_name_ = None
 
                 try:
                     chat_name_ = item["message"]["chat"]["title"]
@@ -85,13 +91,21 @@ def MayaRun():
                 Log.i(chat_)
 
                 if new_chat_member_ is not None:
+                    new_chat_member_id_ = item["message"]["new_chat_participant"]["id"]
+                    new_chat_member_first_name_ = item["message"]["new_chat_participant"]["first_name"]
+                    #! Add Skynet function
+                    UTS = skynet.skynetCheck(new_chat_member_id_)
+                    if UTS == True:
+                        reply = skynet.skynetBan(chat_, new_chat_member_id_, new_chat_member_first_name_)
+                        bot.send_message(reply, chat_)
 
-                    new_chat_member_name_ = item["message"]["new_chat_participant"]["first_name"]
-                    Log.a("welcome")
-                    reply = "Welcome " + new_chat_member_name_ + " to " + chat_name_ + " ^^"
-                    bot.send_message(reply, chat_)
-                    stk = pars.ReadSticker("manomp","welcome")
-                    bot.send_sticker(chat_, stk)
+                    if UTS == False:
+                        new_chat_member_name_ = item["message"]["new_chat_participant"]["first_name"]
+                        Log.a("welcome")
+                        reply = "Welcome " + new_chat_member_name_ + " to " + chat_name_ + " ^^"
+                        bot.send_message(reply, chat_)
+                        stk = pars.ReadSticker("manomp","welcome")
+                        bot.send_sticker(chat_, stk)
 
                 if gone_chat_member_ is not None:
 
@@ -109,9 +123,18 @@ def MayaRun():
 
                 if reply_to_message_ is not None:
 
-                    reply_to_message_name_ = item["message"]["reply_to_message"]["from"]["first_name"]
+                    reply_to_message_first_name_ = item["message"]["reply_to_message"]["from"]["first_name"]
+                    try:
+                        reply_to_message_last_name_ = item["message"]["reply_to_message"]["from"]["last_name"]
+                    except:
+                        reply_to_message_last_name_ = None
+                    try:
+                        reply_to_message_username_ = item["message"]["reply_to_message"]["from"]["username"]
+                    except:
+                        reply_to_message_username_ = None
+
                     reply_id_ = item["message"]["reply_to_message"]["from"]["id"]
-                    reply = repum.reply_to_usermessage(message, first_name_, reply_to_message_name_, chat_, from_, reply_id_)
+                    reply = repum.reply_to_usermessage(message, first_name_, reply_to_message_first_name_, reply_to_message_last_name_,chat_, from_, reply_id_, reply_to_message_username_)
                     bot.send_message(reply, chat_)
 
 
@@ -123,6 +146,7 @@ def MayaRun():
                     
                     if from_ != chat_:
                         reply, parse_mode = trigger.make_reply(message, username_, first_name_)
+                        Log.d(str(reply), str(parse_mode))
                         bot.send_message(reply, chat_, parse_mode)
 
 def idle():

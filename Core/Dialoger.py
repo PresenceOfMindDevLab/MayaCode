@@ -15,7 +15,7 @@
 #                         "Y88P"  
 
 from Core.MayaChan import telegram_chatbot
-from Utils import LowLevel as LL
+from LowLevel import LowLevel as LL
 from Core import Parser as pars
 from Utils import Logger as Log
 from Core import Manager as Manage
@@ -29,16 +29,15 @@ class maya_trigger:
         reply = None
         parse_mode = None
         if msg is not None:
-            reply = None
-            parse_mode = None
             msg, branch = pars.ReadTrigger(msg)
+            print(str(msg) + str(branch)) #!
             reply, parse_mode =  Manage.trigger(msg, branch, username)
-            Log.d(str(reply) + " " + str(parse_mode))
+            #Log.i(str(reply) + " " + str(parse_mode))
         return reply, parse_mode
 
 class maya_reply_usermessage:
 
-    def reply_to_usermessage(self, msg, sendname, takename, chat_id, from_id, user_id):
+    def reply_to_usermessage(self, msg, sendname, takefirstname, takelastname, chat_id, from_id, user_id, takeusername):
         reply = None
         Log.d("Running RTU")
         if msg is not None:
@@ -46,11 +45,11 @@ class maya_reply_usermessage:
             msg, branch = pars.ReadReply(msg)
             try:
                 if branch == "admin_commands":
-                    reply = Manage.admin_commands(msg, chat_id, from_id, user_id, takename, branch)
+                    reply = Manage.admin_commands(msg, chat_id, from_id, user_id, takefirstname, branch, takelastname, sendname, takeusername)
                     return reply
             
                 if branch == "simple_interactions":
-                    if takename == "MayaChan":
+                    if takefirstname == "MayaChan":
                         reply = pars.LoadDialog(msg, branch)
                         pars.Usage(branch)
                         return reply
@@ -63,5 +62,5 @@ class maya_reply_usermessage:
                 branch = None
             if reply is not None:
                 if "{}" in reply:
-                    reply = reply.format(takename)
+                    reply = reply.format(takefirstname)
         return reply

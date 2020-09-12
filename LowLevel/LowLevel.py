@@ -30,8 +30,10 @@ def uptime():
     return uptime
 
 def pingt():
+    print(pars.ReadSettings("LowLevel","ping","ping_ip"))
     response_list = ping(pars.ReadSettings("LowLevel","ping","ping_ip"), size=40, count=1)
     pingr = response_list.rtt_avg_ms
+    print("print pingr   " + str(pingr))
     Log.i("response time: " + str(pingr) + " ms")
     return pingr
 
@@ -43,6 +45,15 @@ def getAntispam():
     except:
         Antispam = False
     return as_time
+
+def skynetStatus():
+    skynet = None
+    try:
+        skynet = pars.ReadSettings("Utils", "Skynet", "enabled")
+    except:
+        skynet = None
+    
+    return skynet
 
 def getAdmins(chat_id, user_id, from_id):
     command = False
@@ -92,3 +103,6 @@ def warnUser(warnings):
     warnings = int(warnings) + 1
     item = "warn" + str(warnings)
     return warnings, item
+
+
+#! return dont work... occurred in ping and uptime

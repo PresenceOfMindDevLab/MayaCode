@@ -3,7 +3,7 @@
         "ping":"Elaboration time: {} ms!",
         "uwu":"UwU",
         "dead":"rip ;__;",
-        "info":"*Bot Info* \nCodename: `MayaChan` \nUptime: `{}` \nPing: `{}ms` ",
+        "info":"*Bot Info* \nCodename: `MayaCode` \nUptime: `{}` \nPing: `{}ms` \nUser Termination System: `{}` \nLoggingV2: `{}` ",
         "maya":"Yes {}? \n*looks at you*"
 
     },
@@ -19,7 +19,8 @@
     },
     "bot_command":{},
     "admin_commands":{
-        "ban":"Alright! *grabs {}'s collar and throws it inside the garbage bin*"
+        "ban":"Alright! *grabs {}'s collar and throws it inside the garbage bin*",
+        "skynetBan":"Warning!\nUser detected by User Termination System Skynet\n {} is now Banned"
     },
     "daytime":{},
     "sticker":{},

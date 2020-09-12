@@ -19,7 +19,8 @@ import json
 import yaml
 
 from Utils import Logger as Log
-from Utils import LowLevel as LL
+from LowLevel import LowLevel as LL
+
 
 def ReadTrigger(msg):
     branch = None
@@ -36,13 +37,16 @@ def ReadTrigger(msg):
         else:
             if msg.split(" ")[0] == "maya" or msg.split(" ")[0] == "Maya":
                 msg = msg.split(' ', 1)[1]
+                
                 if msg in inter:
                     branch = "interactions"
                     msg = msg
                     return msg, branch
+
                 else:
                     branch = None
                     return msg, branch
+
             else:
                 branch = None
                 return msg, branch
@@ -55,20 +59,25 @@ def ReadReply(msg):
         sinter = data["simple_interactions"]
         uinter = data["user_interactions"]
         admin = data["admin_commands"]
+
         if msg in sinter:
             branch = "simple_interactions"
             msg = msg
             return msg, branch
-        if msg in admin:
+
+        if msg in admin:                 #! change this
             branch = "admin_commands"
             msg = msg
             return msg, branch
+
         if msg.split(" ")[0] == "maya" or msg.split(" ")[0] == "Maya":
             msg = msg.split(' ', 1)[1]
+
             if msg in uinter:
                 branch = "user_interactions"
                 msg = msg
                 return msg, branch
+
         else:
             branch = None
             return msg, branch
@@ -84,12 +93,14 @@ def LoadDialog(msg, branch):
 def Usage(branch):
     with open("Core/Data/json/trigger_usage.json") as use:
         data = json.load(use)
-        count = data[branch]["count"]
-        count = int(count) + 1
-        Log.d("Used " + branch + " " + str(count) + " times!")
-        data[branch]["count"] = count
-        with open("Core/Data/json/trigger_usage.json", "w") as use:
-            json.dump(data, use)
+    
+    count = data[branch]["count"]
+    count = int(count) + 1
+    Log.d("Used " + branch + " " + str(count) + " times!")
+    data[branch]["count"] = count
+
+    with open("Core/Data/json/trigger_usage.json", "w") as use:
+        json.dump(data, use, indent=4)
 
 def ReadSettings(section, segment, items):
     with open("Core/Data/yaml/Settings.yaml","r") as setting:
@@ -98,6 +109,7 @@ def ReadSettings(section, segment, items):
             info = data[section][segment][items]
         except:
             data = None
+        print("Settings: " + str(info))
         return info
 
 def ReadSticker(pack, sticker):
@@ -109,19 +121,28 @@ def ReadSticker(pack, sticker):
 def getWarnUser(chat_id, user_id):
     with open("Core/Data/json/warnings.json")as warn:
         data = json.load(warn)
+
         try:
             warnings = data[chat_id][user_id]["warnings"]
             count, item = LL.warnUser(warnings)
             data[chat_id][user_id]["warnings"] = count
+
             with open("Core/Data/json/warnings.json", "w") as warn:
-                json.dump(data, warn)
                 if count == 3:
                     del data[chat_id][user_id]
-                    warn.write[json.dumps(data)]
+                    warn.write[json.dumps(data, warn, indent=4)]
+                    warn.close()
+
+                json.dump(data, warn, indent=4)
+                warn.close()
+
         except:
             warnings = None
             count, item = LL.warnUser(0)
             data[chat_id][user_id]["warnings"] = count
+
             with open("Core/Data/json/warnings.json", "w") as warn:
-                json.dump(data, warn)
-        return count, item
+                warn.write[json.dump(data, warn, indent=4)]
+                warn.close()
+
+        return count, item #! ändern

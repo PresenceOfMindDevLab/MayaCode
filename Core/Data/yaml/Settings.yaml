@@ -6,3 +6,13 @@ LowLevel:
   
   ping:
     ping_ip: 172.217.0.0
+
+Logging:
+  LoggerV2:
+    enabled: True
+    T1: True
+    T2: True
+
+Utils:
+  Skynet:
+    enabled: True

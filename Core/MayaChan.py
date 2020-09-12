@@ -79,6 +79,13 @@ class telegram_chatbot():
         parser.read(config)
         return parser.get('creds', 'masterID')
 
+    def readDBData(self, config):
+        parser = cfg.ConfigParser()
+        parser.read(config)
+        username = parser.get('db', 'username')
+        pw = parser.get('db', 'pw')
+        return username, pw
+
     def getError(self, value):
         if value.status_code != 200:
             if "rights" in value.json()["description"]:
