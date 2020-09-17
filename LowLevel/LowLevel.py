@@ -33,7 +33,6 @@ def pingt():
     print(pars.ReadSettings("LowLevel","ping","ping_ip"))
     response_list = ping(pars.ReadSettings("LowLevel","ping","ping_ip"), size=40, count=1)
     pingr = response_list.rtt_avg_ms
-    print("print pingr   " + str(pingr))
     Log.i("response time: " + str(pingr) + " ms")
     return pingr
 

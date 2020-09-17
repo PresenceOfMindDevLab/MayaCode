@@ -146,7 +146,7 @@ def MayaRun():
                     
                     if from_ != chat_:
                         reply, parse_mode = trigger.make_reply(message, username_, first_name_)
-                        Log.d(str(reply), str(parse_mode))
+                        Log.d(str(reply) + " " + str(parse_mode))
                         bot.send_message(reply, chat_, parse_mode)
 
 def idle():

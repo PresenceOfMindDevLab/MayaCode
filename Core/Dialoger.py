@@ -30,9 +30,8 @@ class maya_trigger:
         parse_mode = None
         if msg is not None:
             msg, branch = pars.ReadTrigger(msg)
-            print(str(msg) + str(branch)) #!
             reply, parse_mode =  Manage.trigger(msg, branch, username)
-            #Log.i(str(reply) + " " + str(parse_mode))
+            Log.i(str(reply) + " " + str(parse_mode))
         return reply, parse_mode
 
 class maya_reply_usermessage:

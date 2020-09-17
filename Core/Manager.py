@@ -26,7 +26,6 @@ bot = telegram_chatbot("Files/config.cfg")
 def trigger(msg, branch, username):
     reply = None
     parse_mode = None
-    print(branch)
 
     try: 
         reply = str(pars.LoadDialog(msg, branch))
@@ -37,16 +36,19 @@ def trigger(msg, branch, username):
         return reply, parse_mode
 
     if msg == "ping":
-        pingr = str(LL.pingt()) #! LowLevel don't work
+        pingr = str(LL.pingt())
         print(pingr)
         reply = reply.format(pingr)
         return reply, parse_mode
 
     elif msg == "info":
         data = LogV2.logV2Activation()
-        reply = reply.format(LL.uptime(), LL.pingt(), LL.skynetStatus(),data[0])   #? Markdown dont work + fromat did not fill the reply
+        reply = reply.format(LL.uptime(), LL.pingt(), LL.skynetStatus(),data[0])  
         parse_mode = "markdown"
-        Log.d("Manage test")
+        return reply, parse_mode
+    
+    elif msg == "maya":
+        reply = reply.format(username)
         return reply, parse_mode
 
     elif branch == "interactions":
