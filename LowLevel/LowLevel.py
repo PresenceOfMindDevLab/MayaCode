@@ -76,6 +76,7 @@ def getAdmins(chat_id, user_id, from_id):
                 admin_id = None
                 break
         pass
+        i = 0
         while from_admin != True:
             try:
                 admin_id = str(adminAr[i]["user"]["id"])
@@ -96,6 +97,7 @@ def getAdmins(chat_id, user_id, from_id):
             command = True
         else:
             command = False
+        print("LLAdmin: " + str(reply) + " " + str(command))
         return reply, command
 
 def warnUser(warnings):

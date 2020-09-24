@@ -19,23 +19,28 @@ from pymongo import MongoClient
 
 from Core.MayaChan import telegram_chatbot
 from LowLevel import LowLevel as LL
+from Utils import Logger as log
 
 bot = telegram_chatbot("Files/config.cfg")
 skynetStatus = LL.skynetStatus()
 
-
-username, pw = bot.readDBData()
-cluster = MongoClient("mongodblink" % (pw, username))
-db = cluster["MayaCode"]
-collection = db["Skynet"]
+def dbConnect():
+    username, pw = bot.readDBData("Files/config.cfg")
+    cluster = MongoClient("<insert MongoLink>" % (pw, username))
+    dbt = cluster.test
+    log.d(dbt)
+    db = cluster["MayaCode"]
+    collection = db["Skynet"]
+    return db,collection
 
 def writeDB(post):
+    db,collection = dbConnect()
     collection.insert_one(post)
 
 def readDB(item, value):
-    results = collection.find({"{}":"{}".format(item, value)})
-    results = results["result"]
-    if results:
+    db, collection = dbConnect()
+    #results = collection.find({"%s" % (item) :value})
+    if db.collection.count_documents({'UserID':value}, limit=1) != 0:
         return True
     else:
         return False

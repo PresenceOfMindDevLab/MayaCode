@@ -57,10 +57,17 @@ def MayaRun():
                 except:
 
                     message = None
-
-                from_ = item["message"]["from"]["id"]
-                chat_ = item["message"]["chat"]["id"]
-                first_name_ = item["message"]["from"]["first_name"]
+                try:
+                    from_ = item["message"]["from"]["id"] #? error with edited message
+                except:
+                    from_ = None
+                try:
+                    chat_ = item["message"]["chat"]["id"]
+                except:
+                    chat_ = None
+                try:
+                    first_name_ = item["message"]["from"]["first_name"]
+                except: first_name_ = None
             
                 try:
                     username_ = item["message"]["from"]["username"]
