@@ -1,4 +1,4 @@
-# MayaChan
+# MayaCode
 Public Python Telegram Bot
 ver. 0.0.2.4 </br>
 WiP. highly unstable! </br>
