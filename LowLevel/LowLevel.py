@@ -15,7 +15,7 @@
 #                         "Y88P"   
 from Core import Base as Base
 from Core.MayaChan import telegram_chatbot
-from Core import Parser as pars
+from Core.Parser import yaml_config_parser
 from Utils import Logger as Log
 
 from pythonping import ping
@@ -23,6 +23,7 @@ import time
 import yaml
 
 bot = telegram_chatbot("Files/config.cfg")
+pars = yaml_config_parser()
 
 def uptime():
     uptime = time.time() - Base.startTime

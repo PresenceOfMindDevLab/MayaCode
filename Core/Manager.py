@@ -16,7 +16,10 @@
 
 from Core.MayaChan import telegram_chatbot
 from LowLevel import LowLevel as LL
-from Core import Parser as pars
+from Core.Parser import loadParser as loadPars
+from Core.Parser import readParser as readPars
+from Core.Parser import fileParser as filePars
+from Core.Parser import parserMod as modPars
 from Utils import Logger as Log
 from Utils import LoggerV2 as LogV2
 from Utils import skynet
@@ -28,8 +31,8 @@ def trigger(msg, branch, username):
     parse_mode = None
 
     try: 
-        reply = str(pars.LoadDialog(msg, branch))
-        pars.Usage(branch)
+        reply = str(loadPars.LoadDialog(msg, branch))
+        modPars.Usage(branch)
 
     except:
         branch = None
@@ -65,16 +68,16 @@ def admin_commands(msg, chat_id, from_id, user_id, takefirstname, branch, takela
     if admin == True:
         if msg == "ban":
             skynet.skynetWriteBan(from_id, takeusername, takefirstname, takelastname, admin)
-            reply = pars.LoadDialog(msg, branch)
+            reply = loadPars.LoadDialog(msg, branch)
             reply = reply.format(takefirstname)
             bot.kick_chat_member(chat_id, user_id, until=0)
-            stk = pars.ReadSticker("manomp", "ban")
+            stk = filePars.ReadSticker("manomp", "ban")
             bot.send_sticker(chat_id, stk)
             return reply
 
         if msg == "warn":
-            warns, item = pars.getWarnUser(chat_id, user_id)
-            reply = pars.LoadDialog(item, "lowLevel")
+            warns, item = modPars.getWarnUser(chat_id, user_id)
+            reply = loadPars.LoadDialog(item, "lowLevel")
             if warns == 3:
                 bot.kick_chat_member(chat_id, user_id, until=0)
                 

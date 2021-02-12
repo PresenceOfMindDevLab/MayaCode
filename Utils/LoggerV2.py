@@ -17,21 +17,21 @@
 import inspect
 import time
 
-from Core import Parser as pars
+from Core.Parser import readParser as readPars
 
 def logV2Activation():
 
     try:
-        LogV2 = pars.ReadSettings("Logging","LoggerV2","enabled")
+        LogV2 = readPars.ReadSettings("Logging","LoggerV2","enabled")
     except:
         LogV2 = None
 
     try:
-        LogV2T1 = pars.ReadSettings("Logging","LoggerV2","T1")
+        LogV2T1 = readPars.ReadSettings("Logging","LoggerV2","T1")
     except:
         LogV2T1 = None
     try:
-        LogV2T2 = pars.ReadSettings("Logging","LoggerV2","T2")
+        LogV2T2 = readPars.ReadSettings("Logging","LoggerV2","T2")
     except:
         LogV2T2 = None
     data = LogV2, LogV2T1, LogV2T2

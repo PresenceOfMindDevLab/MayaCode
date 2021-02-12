@@ -15,32 +15,39 @@
 #                         "Y88P"    
 
 from Core.MayaChan import telegram_chatbot
-from Core import Parser as pars
+from Core.Parser import loadParser as loadPars
 from LowLevel import LowLevel as LL
 from LowLevel import DB
 
 bot = telegram_chatbot("Files/config.cfg")
-skynetStatus = LL.skynetStatus()
 
-def skynetWriteBan(userID, userName, firstName, lastName, admin):
-        if skynetStatus == True:
-                name = firstName + " " + lastName
-                post = {"UserID": userID, "UserName": userName, "Name": name, "Admin": admin}
-                DB.writeDB(post)
+class skynet():
+    def __init__(self):
+        self.status = LL.skynetStatus()
 
-def skynetCheck(userID):
-        userOnBanList = False
+    def skynetWriteBan(self, userID, userName, firstName, lastName, admin):
+        if self.status == True:
+            name = firstName + " " + lastName
+            post = {"UserID": userID, "UserName": userName, "Name": name, "Admin": admin}
+            DB.writeDB(post)
 
-        if skynetStatus == True:
-                foo = DB.readDB("UserID", userID)
-                if foo == True:
-                        userOnBanList = True
-                else:
-                        userOnBanList = False
-        return userOnBanList
-
-def skynetBan(chatID, userID, firstname):
+    def skynetBan(self, chatID, userID, firstname):
         bot.kick_chat_member(chatID, userID, until=0)
-        reply = pars.LoadDialog("skynetBan", "admin_commands")
+        reply = loadPars.LoadDialog("skynetBan", "admin_commands")
         reply = reply.fromat(firstname)
         return reply
+
+class skynetUtils():
+    def __init__(self):
+        self.status = LL.skynetStatus()
+
+    def skynetCheck(self, userID):
+        userOnBanList = False
+
+        if self.status == True:
+            foo = DB.readDB("UserID", userID)
+            if foo == True:
+                userOnBanList = True
+        else:
+            userOnBanList = False
+        return userOnBanList

@@ -15,9 +15,12 @@
 #                         "Y88P"    
 
 from Core.MayaChan import telegram_chatbot
-from Core import Parser as pars
+from Core.Parser import loadParser as loadPars
+from Core.Parser import readParser as readPars
+from Core.Parser import fileParser as filePars
 from Utils import Logger as Log
-from Core.Dialoger import maya_trigger, maya_reply_usermessage 
+from Core.Dialoger import mayaTrigger
+from Core.Dialoger import mayaReply
 from Utils import skynet
 
 import operator
@@ -30,8 +33,7 @@ import json
 
 
 bot = telegram_chatbot("Files/config.cfg")
-trigger = maya_trigger()
-repum = maya_reply_usermessage()
+trigger = mayaTrigger()
 startTime = time.time()
 Log.d("Set start time: " + str(time.strftime("%H:%M:%S", time.gmtime(startTime))))
 
@@ -111,7 +113,7 @@ def MayaRun():
                         Log.a("welcome")
                         reply = "Welcome " + new_chat_member_name_ + " to " + chat_name_ + " ^^"
                         bot.send_message(reply, chat_)
-                        stk = pars.ReadSticker("manomp","welcome")
+                        stk = filePars.ReadSticker("manomp","welcome")
                         bot.send_sticker(chat_, stk)
 
                 if gone_chat_member_ is not None:
@@ -141,7 +143,7 @@ def MayaRun():
                         reply_to_message_username_ = None
 
                     reply_id_ = item["message"]["reply_to_message"]["from"]["id"]
-                    reply = repum.reply_to_usermessage(message, first_name_, reply_to_message_first_name_, reply_to_message_last_name_,chat_, from_, reply_id_, reply_to_message_username_)
+                    reply = mayaReply.reply_to_usermessage(message, first_name_, reply_to_message_first_name_, reply_to_message_last_name_,chat_, from_, reply_id_, reply_to_message_username_)
                     bot.send_message(reply, chat_)
 
 

@@ -16,32 +16,34 @@
 
 from Core.MayaChan import telegram_chatbot
 from LowLevel import LowLevel as LL
-from Core import Parser as pars
+from Core.Parser import loadParser as loadPars
+from Core.Parser import readParser as readPars
+from Core.Parser import parserMod as modPars
 from Utils import Logger as Log
 from Core import Manager as Manage
 
 bot = telegram_chatbot("Files/config.cfg")
 
 
-class maya_trigger:
+class mayaTrigger:
     
     def make_reply(self, msg, username, first_name):
         reply = None
         parse_mode = None
         if msg is not None:
-            msg, branch = pars.ReadTrigger(msg)
+            msg, branch = readPars.ReadTrigger(msg)
             reply, parse_mode =  Manage.trigger(msg, branch, username)
             Log.i(str(reply) + " " + str(parse_mode))
         return reply, parse_mode
 
-class maya_reply_usermessage:
+class mayaReply:
 
     def reply_to_usermessage(self, msg, sendname, takefirstname, takelastname, chat_id, from_id, user_id, takeusername):
         reply = None
         Log.d("Running RTU")
         if msg is not None:
             
-            msg, branch = pars.ReadReply(msg)
+            msg, branch = readPars.ReadReply(msg)
             try:
                 if branch == "admin_commands":
                     reply = Manage.admin_commands(msg, chat_id, from_id, user_id, takefirstname, branch, takelastname, sendname, takeusername)
@@ -49,13 +51,13 @@ class maya_reply_usermessage:
             
                 if branch == "simple_interactions":
                     if takefirstname == "MayaChan":
-                        reply = pars.LoadDialog(msg, branch)
-                        pars.Usage(branch)
+                        reply = loadPars.LoadDialog(msg, branch)
+                        modPars.Usage(branch)
                         return reply
 
                 if branch == "user_interactions":
-                    reply = pars.LoadDialog(msg, branch)
-                    pars.Usage(branch)
+                    reply = loadPars.LoadDialog(msg, branch)
+                    modPars.Usage(branch)
                     
             except:
                 branch = None

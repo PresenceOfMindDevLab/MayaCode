@@ -31,16 +31,16 @@ def dbConnect():
     log.d(dbt)
     db = cluster["MayaCode"]
     collection = db["Skynet"]
-    return db,collection
+    return collection
 
 def writeDB(post):
-    db,collection = dbConnect()
+    collection = dbConnect()
     collection.insert_one(post)
 
 def readDB(item, value):
-    db, collection = dbConnect()
-    #results = collection.find({"%s" % (item) :value})
-    if db.collection.count_documents({'UserID':value}, limit=1) != 0:
-        return True
+    collection = dbConnect()
+    if collection.count_documents({'UserID':0}, limit=1) != 0:
+        print("DB Bullshit")
+        return False ## Change to true
     else:
         return False
