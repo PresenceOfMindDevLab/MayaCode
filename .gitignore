@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+Core/Data/json/trigger_usage.json
+
+Files/config.cfg
+
+Files/log.txt
