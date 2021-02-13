@@ -30,6 +30,9 @@ class loadParser():
             return reply
 
 class readParser():
+    def __init__(self):
+        self = None
+
     def ReadTrigger(self, msg):
         branch = None
         with open("Core/Data/json/trigger.json") as trigger:
@@ -90,15 +93,16 @@ class readParser():
                 branch = None
                 return msg, branch
 
-class yaml_config_parser():
+class yamlConfigParser():
     def __init__(self):
-        print("test")
+        self = None
 
     def ReadSettings(self, section, segment, items):
         with open("Core/Data/yaml/Settings.yaml","r") as setting:
             data = yaml.full_load(setting)
             try:
                 info = data[section][segment][items]
+                print("test")
             except:
                 data = None
             print("Settings: " + str(info))
