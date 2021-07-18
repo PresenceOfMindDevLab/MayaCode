@@ -28,54 +28,83 @@ def trigger(msg, branch, username):
     parse_mode = None
 
     try: 
+
         reply = str(pars.LoadDialog(msg, branch))
         pars.Usage(branch)
 
     except:
+
         branch = None
         return reply, parse_mode
 
     if msg == "ping":
+
         pingr = str(LL.pingt())
         print(pingr)
         reply = reply.format(pingr)
         return reply, parse_mode
 
     elif msg == "info":
+
         data = LogV2.logV2Activation()
         reply = reply.format(LL.uptime(), LL.pingt(), LL.skynetStatus(),data[0])  
         parse_mode = "markdown"
         return reply, parse_mode
     
     elif msg == "maya":
+
         reply = reply.format(username)
         return reply, parse_mode
 
     elif branch == "interactions":
+
         if "{}" in reply:
+
             reply = reply.format(username)
             return reply, parse_mode
 
     return reply, parse_mode
 
 def admin_commands(msg, chat_id, from_id, user_id, takefirstname, branch, takelastname, admin, takeusername):
+
     reply = None
     reply, admin = LL.getAdmins(chat_id, user_id, from_id)
 
     if admin == True:
-        if msg == "ban":
-            skynet.skynetWriteBan(from_id, takeusername, takefirstname, takelastname, admin)
+
+        if msg == "sban":
+
+            sBanSuccess =  skynet.skynetWriteBan(from_id, takeusername, takefirstname, takelastname, admin)
+            if sBanSuccess == False:
+                failMsg = pars.LoadDialog("sBanFail","utility")
+                bot.send_message(failMsg, chat_id)
             reply = pars.LoadDialog(msg, branch)
             reply = reply.format(takefirstname)
+
             bot.kick_chat_member(chat_id, user_id, until=0)
             stk = pars.ReadSticker("manomp", "ban")
             bot.send_sticker(chat_id, stk)
+
             return reply
 
-        if msg == "warn":
+        elif msg == "ban":
+
+            reply = pars.LoadDialog(msg, branch)
+            reply = reply.format(takefirstname)
+
+            bot.kick_chat_member(chat_id, user_id, until=0)
+            stk = pars.ReadSticker("manomp", "ban")
+            bot.send_sticker(chat_id, stk)
+
+            return reply
+
+        elif msg == "warn":
+
             warns, item = pars.getWarnUser(chat_id, user_id)
             reply = pars.LoadDialog(item, "lowLevel")
+
             if warns == 3:
+                
                 bot.kick_chat_member(chat_id, user_id, until=0)
                 
     return reply

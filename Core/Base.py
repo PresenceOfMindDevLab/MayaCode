@@ -36,6 +36,7 @@ startTime = time.time()
 Log.d("Set start time: " + str(time.strftime("%H:%M:%S", time.gmtime(startTime))))
 
 def MayaRun():
+
     update_id = None
     Log.d("Run Maya")
     while True:
@@ -98,15 +99,19 @@ def MayaRun():
                 Log.i(chat_)
 
                 if new_chat_member_ is not None:
+                    
                     new_chat_member_id_ = item["message"]["new_chat_participant"]["id"]
                     new_chat_member_first_name_ = item["message"]["new_chat_participant"]["first_name"]
                     #! Add Skynet function
                     UTS = skynet.skynetCheck(new_chat_member_id_)
+
                     if UTS == True:
+
                         reply = skynet.skynetBan(chat_, new_chat_member_id_, new_chat_member_first_name_)
                         bot.send_message(reply, chat_)
 
                     if UTS == False:
+                        
                         new_chat_member_name_ = item["message"]["new_chat_participant"]["first_name"]
                         Log.a("welcome")
                         reply = "Welcome " + new_chat_member_name_ + " to " + chat_name_ + " ^^"

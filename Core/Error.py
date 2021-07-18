@@ -53,7 +53,7 @@ class TelegramError(Exception):
     def __str__(self):
         return '%s' % self.message
 
-class UnkownError(MayaError):
+class UnknownError(MayaError):
     def __init__(self, value):
         self.message = "Unknown error: %s" % value
 

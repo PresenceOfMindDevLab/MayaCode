@@ -2,7 +2,7 @@
     "equals": ["ping","uwu","dead","info","maya"],
     "interactions": ["hug me"],
     "bot_command": [],
-    "admin_commands": ["ban"],
+    "admin_commands": ["ban","sban"],
     "daytime":[],
     "simple_interactions":["*pat*"],
     "user_interactions":["kill him"],

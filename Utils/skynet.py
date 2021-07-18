@@ -27,6 +27,11 @@ def skynetWriteBan(userID, userName, firstName, lastName, admin):
                 name = firstName + " " + lastName
                 post = {"UserID": userID, "UserName": userName, "Name": name, "Admin": admin}
                 DB.writeDB(post)
+                sBanSuccess = True
+                return sBanSuccess
+        elif skynetStatus == False:
+                sBanSuccess = False 
+                return sBanSuccess
 
 def skynetCheck(userID):
         userOnBanList = False

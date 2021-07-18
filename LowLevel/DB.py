@@ -25,22 +25,28 @@ bot = telegram_chatbot("Files/config.cfg")
 skynetStatus = LL.skynetStatus()
 
 def dbConnect():
+
     username, pw = bot.readDBData("Files/config.cfg")
     cluster = MongoClient("<insert MongoLink>" % (pw, username))
     dbt = cluster.test
     log.d(dbt)
+
     db = cluster["MayaCode"]
     collection = db["Skynet"]
-    return db,collection
+    return collection
 
 def writeDB(post):
-    db,collection = dbConnect()
+
+    collection = dbConnect()
     collection.insert_one(post)
 
 def readDB(item, value):
-    db, collection = dbConnect()
-    #results = collection.find({"%s" % (item) :value})
-    if db.collection.count_documents({'UserID':value}, limit=1) != 0:
-        return True
+
+    collection = dbConnect()
+    if collection.count_documents({'UserID':0}, limit=1) != 0:
+
+        print("DB Bullshit")
+        return False ## Change to true
+        
     else:
         return False

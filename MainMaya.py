@@ -21,6 +21,7 @@ from Core.MayaChan import telegram_chatbot
 bot = telegram_chatbot("Files/config.cfg")
 
 if __name__ == "__main__":
+    
     bot.sendbootmsg("Booted!")
     Log.i("Starting Maya-Project, version 0.0.3.1")
     Base.MayaRun()

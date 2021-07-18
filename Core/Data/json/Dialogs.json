@@ -20,7 +20,8 @@
     "bot_command":{},
     "admin_commands":{
         "ban":"Alright! *grabs {}'s collar and throws it inside the garbage bin*",
-        "skynetBan":"Warning!\nUser detected by User Termination System Skynet\n {} is now Banned"
+        "skynetBan":"Warning!\nUser detected by User Termination System Skynet\n {} is now Banned",
+        "sban": "Warning!\nUser detected by User Termination System Skynet\n {} is now Banned"
     },
     "daytime":{},
     "sticker":{},
@@ -28,6 +29,9 @@
         "warn1":"",
         "warn2":"",
         "warn3":""
+    },
+    "utility":{
+        "sBanFail":"Failed to sBan the user. Normal Ban will be applied!"
     }
 
 }
