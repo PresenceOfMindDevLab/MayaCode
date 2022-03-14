@@ -14,10 +14,10 @@
 #                        Y8b d88P
 #                         "Y88P"
 
-
 import time
 import yaml
 from pythonping import ping
+
 
 from Core import Base as Base
 from Core.MayaChan import telegram_chatbot
@@ -29,40 +29,65 @@ bot = telegram_chatbot("Files/config.cfg")
 
 
 def uptime():
+
     uptime = time.time() - Base.startTime
     uptime = time.strftime("%H:%M:%S", time.gmtime(uptime))
     return uptime
 
 
 def pingt():
+
+    print(pars.ReadSettings("LowLevel", "ping", "ping_ip"))
     response_list = ping(pars.ReadSettings(
         "LowLevel", "ping", "ping_ip"), size=40, count=1)
     pingr = response_list.rtt_avg_ms
+
     Log.i("response time: " + str(pingr) + " ms")
     return pingr
 
 
 def getAntispam():
+
     as_time = None
     Antispam = pars.ReadSettings("LowLevel", "antispam", "antispam_enabled")
+
     try:
         as_time = pars.ReadSettings("LowLevel", "antispam", "antispam_time")
     except:
         Antispam = False
+
     return as_time
 
 
+def skynetStatus():
+
+    skynetStatus = None
+
+    try:
+        skynetStatus = pars.ReadSettings("Utils", "Skynet", "enabled")
+    except:
+        skynetStatus = None
+    
+    skynetStatus = pars.ReadSettings("Utils", "Skynet","enabled")
+
+    return skynetStatus
+
+
 def getAdmins(chat_id, user_id, from_id):
+
     command = False
     reply = None
     adminAr = bot.get_chat_administrators(chat_id)
     adminAr = adminAr["result"]
     Log.d("Get Group Admins")
+
     if adminAr:
+
         i = 0
         admin = False
         from_admin = False
         while admin != True:
+
             try:
                 admin_id = str(adminAr[i]["user"]["id"])
                 if int(user_id) != int(admin_id):
@@ -74,30 +99,48 @@ def getAdmins(chat_id, user_id, from_id):
                 admin_id = None
                 break
         pass
+
+        i = 0
         while from_admin != True:
+
             try:
+
                 admin_id = str(adminAr[i]["user"]["id"])
                 if int(from_id) != int(admin_id):
+
                     i = i + 1
                 else:
+
                     from_admin = True
 
             except:
+
                 from_id = None
                 break
         pass
+
         if admin == True:
+
             reply = "Sorry... I can't do this to an admin"
         if from_admin == False:
+
             reply = "Only admins can do that!"
         if admin != True and from_admin != False:
+
             command = True
         else:
+
             command = False
+        print("LLAdmin: " + str(reply) + " " + str(command))
+
         return reply, command
 
 
 def warnUser(warnings):
+
     warnings = int(warnings) + 1
     item = "warn" + str(warnings)
     return warnings, item
+
+
+#! return dont work... occurred in ping and uptime

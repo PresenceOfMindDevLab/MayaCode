@@ -14,15 +14,34 @@
 #                        Y8b d88P
 #                         "Y88P"
 
-import Core.Base as Base
-from Utils import Logger as Log
-from Core.MayaChan import telegram_chatbot
+import inspect
+import time
 
-bot = telegram_chatbot("Files/config.cfg")
+from Core import Parser as pars
 
-if __name__ == "__main__":
 
-    bot.sendbootmsg("Booted!")
-    Log.i("Starting Maya-Project, version 0.0.3.1")
-    Base.MayaRun()
-    Base.idle()
+def logV2Activation():
+
+    try:
+        LogV2 = pars.ReadSettings("Logging", "LoggerV2", "enabled")
+    except:
+        LogV2 = None
+
+    try:
+        LogV2T1 = pars.ReadSettings("Logging", "LoggerV2", "T1")
+    except:
+        LogV2T1 = None
+    try:
+        LogV2T2 = pars.ReadSettings("Logging", "LoggerV2", "T2")
+    except:
+        LogV2T2 = None
+    data = LogV2, LogV2T1, LogV2T2
+
+    return data
+
+
+def crt():
+    return time.strftime("%H:%M:%S")
+
+
+# * check every API return for error codes
