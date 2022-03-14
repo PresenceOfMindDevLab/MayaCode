@@ -1,1 +1,29 @@
-{"equals": {"count": 5}, "interactions": {"count": 3}, "simple_interactions": {"count": 0}, "admin_commands": {"count": 0}, "user_interactions": {"count": 0}}
+{
+    "equals": {
+        "count": 11
+    },
+    "interactions": {
+        "count": 0
+    },
+    "simple_interactions": {
+        "count": 0
+    },
+    "user_interactions": {
+        "count": 0
+    },
+    "bot_command": {
+        "count": 0
+    },
+    "admin_commands": {
+        "count": 0
+    },
+    "daytime": {
+        "count": 0
+    },
+    "sticker": {
+        "count": 0
+    },
+    "lowLevel": {
+        "count": 0
+    }
+}

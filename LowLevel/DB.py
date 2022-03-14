@@ -14,15 +14,42 @@
 #                        Y8b d88P
 #                         "Y88P"
 
-import Core.Base as Base
-from Utils import Logger as Log
+import pymongo
+from pymongo import MongoClient
+
 from Core.MayaChan import telegram_chatbot
+from LowLevel import LowLevel
+from Utils import Logger as log
 
 bot = telegram_chatbot("Files/config.cfg")
 
-if __name__ == "__main__":
 
-    bot.sendbootmsg("Booted!")
-    Log.i("Starting Maya-Project, version 0.0.3.1")
-    Base.MayaRun()
-    Base.idle()
+def dbConnect():
+
+    username, pw = bot.readDBData("Files/config.cfg")
+    cluster = MongoClient(
+        "mongodb+srv://HartiChan:%s@einithi.pqidk.mongodb.net/%s?retryWrites=true&w=majority" % (pw, username))
+    dbt = cluster.test
+    log.d(dbt)
+
+    db = cluster["MayaCode"]
+    collection = db["Skynet"]
+    return collection
+
+
+def writeDB(post):
+
+    collection = dbConnect()
+    collection.insert_one(post)
+
+
+def readDB(item, value):
+
+    collection = dbConnect()
+    if collection.count_documents({'UserID': 0}, limit=1) != 0:
+
+        print("DB Bullshit")
+        return False  # Change to true
+
+    else:
+        return False

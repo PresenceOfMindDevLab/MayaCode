@@ -1,32 +1,37 @@
 {
-    "equals":{
-        "ping":"Elaboration time: {} ms!",
-        "uwu":"UwU",
-        "dead":"rip ;__;",
-        "info":"*Bot Info* \nCodename: `MayaChan` \nUptime: `{}` \nPing: `{}ms` ",
-        "maya":"Yes {}? \n*looks at you*"
+    "equals": {
+        "ping": "Elaboration time: {} ms!",
+        "uwu": "UwU",
+        "dead": "rip ;__;",
+        "info": "*Bot Info* \nCodename: `MayaCode` \nUptime: `{}` \nPing: `{}ms` \nUser Termination System: `{}` \nLoggingV2: `{}` ",
+        "maya": "Yes {}? \n*looks at you*"
 
     },
-    
-    "interactions":{
-        "hug me":"*strongly hugs {} * ^^"
+
+    "interactions": {
+        "hug me": "*strongly hugs {} * ^^"
     },
-    "simple_interactions":{
-        "*pat*":"*purrs* (~.~)"
+    "simple_interactions": {
+        "*pat*": "*purrs* (~.~)"
     },
-    "user_interactions":{
-        "kill him":"As you wish! *wears a strap on, pins {} on all fours and applies death by snu snu*"
+    "user_interactions": {
+        "kill him": "As you wish! *wears a strap on, pins {} on all fours and applies death by snu snu*"
     },
-    "bot_command":{},
-    "admin_commands":{
-        "ban":"Alright! *grabs {}'s collar and throws it inside the garbage bin*"
+    "bot_command": {},
+    "admin_commands": {
+        "ban": "Alright! *grabs {}'s collar and throws it inside the garbage bin*",
+        "skynetBan": "Warning!\nUser detected by User Termination System Skynet\n {} is now Banned",
+        "sban": "Warning!\nUser detected by User Termination System Skynet\n {} is now Banned"
     },
-    "daytime":{},
-    "sticker":{},
-    "lowLevel":{
-        "warn1":"",
-        "warn2":"",
-        "warn3":""
+    "daytime": {},
+    "sticker": {},
+    "lowLevel": {
+        "warn1": "",
+        "warn2": "",
+        "warn3": ""
+    },
+    "utility": {
+        "sBanFail": "Failed to sBan the user. Normal Ban will be applied!"
     }
 
 }
